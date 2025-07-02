@@ -1,0 +1,21 @@
+[package]
+name = "mcp-service"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+tokio = { version = "1", features = ["full"] }
+axum = { version = "0.8", features = ["json", "macros"] }
+tracing = { version = "0.1", features = ["std"] }
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+tracing-appender = { version = "0.2" }
+rand = { version = "0.9", features = ["std"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = { version = "1" }
+futures = { version = "0.3" }
+mcp-core-rs = { path = "../mcp-rs/crates/mcp-core-rs" }
+mcp-server-rs = { path = "../mcp-rs/crates/mcp-server-rs" }
+mcp-error-rs = { path = "../mcp-rs/crates/mcp-error-rs" }
+mcp-transport-rs = { path = "../mcp-rs/crates/mcp-transport-rs" }
+tokio-util = { version = "0.7" }
+tokio-stream = { version = "0.1", features = ["sync"] }
