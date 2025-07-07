@@ -7,9 +7,12 @@ use axum::{
 use futures::{Stream, TryStreamExt};
 use mcp_server_rs::{
     core::{protocol::message::JsonRpcMessage, utils::CleanupStream},
-    router::impls::{chart::ChartRouter, counter::CounterRouter},
     server::Server,
-    transport::server::sse::SseTransport,
+    service::{
+        impls::{chart::ChartRouter, counter::CounterRouter},
+        traits::Service,
+    },
+    transport::sse::SseTransport,
 };
 use tokio::{io, sync::mpsc};
 use tokio_stream::{StreamExt, once, wrappers::UnboundedReceiverStream};
@@ -104,7 +107,7 @@ pub async fn post_handler(
     }
 }
 
-fn get_router(service: &str) -> Option<Box<dyn mcp_server_rs::router::traits::Router>> {
+fn get_router(service: &str) -> Option<Box<dyn Service>> {
     match service {
         "chart" => Some(Box::new(ChartRouter::new())),
         "counter" => Some(Box::new(CounterRouter::new())),
